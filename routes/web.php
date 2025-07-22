@@ -19,8 +19,38 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $user = Auth::user();
+
+    if ($user->hasRole('admin')) {
+        return redirect()->route('admin.dashboard');
+    } elseif ($user->hasRole('operator')) {
+        return redirect()->route('operator.dashboard');
+    } elseif ($user->hasRole('user')) {
+        return redirect()->route('user.dashboard');
+    }
+
+    // fallback
+    abort(403, 'Role not assigned.');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('dashboard.admin');
+    })->name('admin.dashboard');
+});
+
+Route::middleware(['auth', 'role:operator'])->group(function () {
+    Route::get('/operator/dashboard', function () {
+        return view('dashboard.operator');
+    })->name('operator.dashboard');
+});
+
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/user/dashboard', function () {
+        return view('dashboard.user');
+    })->name('user.dashboard');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
