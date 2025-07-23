@@ -43,6 +43,11 @@
                     </div>
 
                     <div class="form-group col-md-4">
+                        <label>Customer</label>
+                        <input type="text" name="customer" class="form-control border border-dark">
+                    </div>
+
+                    <div class="form-group col-md-4">
                         <label>SKU Produk</label>
                         <input type="text" name="sku_produk" class="form-control border border-dark">
                     </div>
@@ -52,7 +57,7 @@
                         <input type="text" name="nama_produk" class="form-control border border-dark">
                     </div>
 
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-md-4">
                         <label>Qty Produk</label>
                         <input type="text" id="qty_produk" name="qty_produk" class="form-control border border-dark" min="1">
                     </div>

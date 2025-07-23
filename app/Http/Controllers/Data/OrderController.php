@@ -19,9 +19,9 @@ class OrderController extends Controller
 
             return Datatables::of($data)
                 ->addColumn('aksi', function ($item) {
-                    $button = '<a href="' . route('admin.data.order.show', $item->id) . '" title="Detail" class="btn btn-xs btn-info mr-1"><i class="fas fa-eye"></i></a>';
+                    // $button = '<a href="' . route('admin.data.order.show', $item->id) . '" title="Detail" class="btn btn-xs btn-info mr-1"><i class="fas fa-eye"></i></a>';
                     if (auth()->user()->hasRole('admin')) {
-                        $button .= '<a href="' . route('admin.data.order.edit', $item->id) . '" title="Edit" class="btn btn-xs btn-warning mr-1"><i class="far fa-edit"></i></a>';
+                        $button = '<a href="' . route('admin.data.order.edit', $item->id) . '" title="Edit" class="btn btn-xs btn-warning mr-1"><i class="far fa-edit"></i></a>';
                         $button .= '<button 
                             title="Hapus"
                             data-id="' . $item->id . '"  
@@ -44,6 +44,79 @@ class OrderController extends Controller
         $title = 'Create Data Order';
 
         return view('data.order.create', compact('title'));
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'tanggal'       => 'required|date',
+            'lok_gudang'    => 'required|string',
+            'nama_cs'       => 'required|string',
+            'nama_adv'      => 'required',
+            'sku_produk'    => 'required',
+            'nama_produk'   => 'required',
+            'qty_produk'    => 'required',
+            'harga_produk'  => 'required',
+            'customer'      => 'required',
+            'no_hp'         => 'nullable',
+            'alamat'        => 'nullable',
+            'provinsi'      => 'required',
+            'kabupaten'     => 'required',
+            'kecamatan'     => 'required',
+            'kelurahan'     => 'required',
+            'kode_pos'      => 'required',
+            'kode_promo'    => 'nullable',
+            'pembayaran'    => 'required',
+            'ongkir'        => 'nullable',
+            'diskon_ongkir' => 'nullable',
+            'admin_cod'     => 'nullable',
+            'diskon_admin_cod' => 'nullable',
+            'ekpedisi'         => 'required',
+            'total_pembayaran' => 'required',
+            'bukti_tf'         => 'nullable'
+        ]);
+
+        // Bersihkan format angka dari titik
+        $harga_produk = str_replace('.', '', $request->harga_produk);
+        $ongkir = str_replace('.', '', $request->ongkir);
+        $diskon_ongkir = str_replace('.', '', $request->diskon_ongkir);
+        $admin_cod = str_replace('.', '', $request->admin_cod);
+        $diskon_admin_cod = str_replace('.', '', $request->diskon_admin_cod);
+        $total_pembayaran = str_replace('.', '', $request->total_pembayaran);
+
+        // Simpan ke DB
+        Order::create([
+            'tanggal' => $request->tanggal,
+            'lok_gudang' => $request->lok_gudang,
+            'nama_cs' => $request->nama_cs,
+            'nama_adv' => $request->nama_adv,
+            'sku_produk' => $request->sku_produk,
+            'nama_produk' => $request->nama_produk,
+            'qty_produk' => $request->qty_produk,
+            'harga_produk' => $harga_produk,
+            'customer' => $customer,
+            'no_hp' => $request->no_hp,
+            'alamat' => $request->alamat,
+            'provinsi' => $request->provinsi,
+            'kabupaten' => $request->kabupaten,
+            'kecamatan' => $request->kecamatan,
+            'kelurahan' => $request->kelurahan,
+            'kode_pos' => $request->kode_pos,
+            'kode_promo' => $request->kode_promo,
+            'pembayaran' => $request->pembayaran,
+            'ongkir' => $ongkir,
+            'diskon_ongkir' => $diskon_ongkir,
+            'admin_cod' => $admin_cod,
+            'diskon_admin_cod' => $diskon_admin_cod,
+            'ekpedisi' => $request->ekpedisi,
+            'total_pembayaran' => $total_pembayaran,
+            'bukti_tf' => $request->hasFile('bukti_tf') 
+                ? $request->file('bukti_tf')->store('bukti_tf', 'public') 
+                : null,
+        ]);
+
+        Alert::success('Berhasil', 'Data Order berhasil disimpan');
+        return redirect()->route('admin.data.order.index');
     }
 
 }
