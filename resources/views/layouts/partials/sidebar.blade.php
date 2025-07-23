@@ -28,7 +28,12 @@
                 <li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li>
                 </ul>
             </li>
-        <li class="menu-header">Stisla</li>
+        <li class="menu-header">Management User</li>
+        <li class="{{ request()->routeIs('admin.personil.user.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.personil.user.index') }}">
+                <i class="fas fa-user"></i> <span>Pegawai</span>
+            </a>
+        </li>
         <li class="dropdown">
             <a href="#" class="nav-link has-dropdown"><i class="far fa-file-alt"></i> <span>Forms</span></a>
             <ul class="dropdown-menu">
