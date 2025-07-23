@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Data\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,7 @@ Route::group(['middleware' => ['auth'],'prefix' => 'administrator', 'as' => 'adm
         Route::get('order/create', 'OrderController@create')->name('order.create');
         Route::post('order', 'OrderController@store')->name('order.store');
         Route::get('order/{id}/edit', 'OrderController@edit')->name('order.edit');
+        Route::put('/{id}', [OrderController::class, 'update'])->name('order.update');
     });
 
    // Personil
