@@ -33,6 +33,15 @@ Route::group(['middleware' => ['auth'],'prefix' => 'administrator', 'as' => 'adm
         Route::get('/tasks/priority-data','DashboardController@getTasksByPriority')->name('priority');
     });
 
+        // Data
+    Route::group(['namespace' => 'App\Http\Controllers\Data','prefix' => 'data', 'as' => 'data.'], function(){
+        // Order
+        Route::get('order', 'OrderController@index')->name('order.index');
+        Route::get('order/create', 'OrderController@create')->name('order.create');
+        Route::post('order', 'OrderController@store')->name('order.store');
+        Route::get('order/{id}/edit', 'OrderController@edit')->name('order.edit');
+    });
+
    // Personil
     Route::group(['middleware' => ['role:admin|operator'],'namespace' => 'App\Http\Controllers\Personil','prefix' => 'personil', 'as' => 'personil.'], function(){
         // Profil

@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Models\Data;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
+use App\Models\User;
+
+class order extends Model
+{
+    use HasFactory,SoftDeletes;
+
+    public $incrementing = true;
+    protected $keyType = 'int';
+    protected $table = 'order';
+
+    protected $fillable = [
+        'id',
+        'lok_gudang',
+        'ekpedisi',
+        'nama_cs',
+        'nama_adv',
+        'sku_produk',
+        'nama_produk',
+        'qty_produk',
+        'harga_produk',
+        'customer',
+        'no_hp',
+        'alamat',
+        'provinsi',
+        'kabupaten',
+        'kecamatan',
+        'kelurahan',
+        'kode_pos',
+        'kode_promo',
+        'ongkir',
+        'diskon_ongkir',
+        'admin_cod',
+        'diskon_admin_cod',
+        'pembayaran',
+        'total_pembayaran',
+        'bukti_tf',
+
+    ];
+}
