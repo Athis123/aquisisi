@@ -18,6 +18,7 @@ class order extends Model
 
     protected $fillable = [
         'id',
+        'tanggal',
         'lok_gudang',
         'ekpedisi',
         'nama_cs',

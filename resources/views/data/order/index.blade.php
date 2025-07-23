@@ -14,7 +14,7 @@
             <table class="table table-bordered" id="table" width="100%">
                 <thead>
                     <tr>
-                        <th>No</th>
+                        <th>Tanggal</th>
                         <th>Customer</th>
                         <th>Produk</th>
                         <th>Qty</th>
@@ -46,7 +46,7 @@ $(function() {
         serverSide: true,
         ajax: '{{ route('admin.data.order.index') }}',
         columns: [
-            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+            { data: 'tanggal', name: 'tanggal', orderable: false, searchable: false },
             { data: 'customer', name: 'customer'},
             { data: 'nama_produk', name: 'nama_produk' },
             { data: 'qty_produk', qty_produk: 'name' },

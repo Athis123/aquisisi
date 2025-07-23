@@ -18,7 +18,6 @@ class OrderController extends Controller
             $data = Order::query();
 
             return Datatables::of($data)
-                ->addIndexColumn()
                 ->addColumn('aksi', function ($item) {
                     $button = '<a href="' . route('admin.data.order.show', $item->id) . '" title="Detail" class="btn btn-xs btn-info mr-1"><i class="fas fa-eye"></i></a>';
                     if (auth()->user()->hasRole('admin')) {

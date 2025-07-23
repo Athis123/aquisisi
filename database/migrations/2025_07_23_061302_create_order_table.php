@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('order', function (Blueprint $table) {
             $table->id();
+            $table->datae('tanggal')->nullable();
             $table->string('lok_gudang')->nullable();
             $table->string('ekpedisi')->nullable();
             $table->string('nama_cs')->nullable();

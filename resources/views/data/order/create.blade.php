@@ -13,6 +13,15 @@
             <form action="{{ route('admin.data.order.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
+                    <div class="form-group col-md-4">
+                        <label>Tanggal Order</label>
+                        <div class="input-group date" id="tanggalPicker" data-target-input="nearest">
+                            <input type="text" name="tanggal" class="form-control datetimepicker-input border border-dark" data-target="#tanggalPicker"/>
+                            <div class="input-group-append" data-target="#tanggalPicker" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="form-group col-md-4">
                         <label>Lokasi Gudang</label>
@@ -20,16 +29,6 @@
                             <option value="">-- Pilih --</option>
                             <option value="jakarta">Jakarta</option>
                             <option value="surabaya">Surabaya</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        <label>Ekspedisi</label>
-                        <select name="ekpedisi" class="form-control border border-dark">
-                            <option value="">-- Pilih --</option>
-                            <option value="jne">JNE</option>
-                            <option value="jnt">JNT</option>
-                            <option value="ninja">Ninja Express</option>
                         </select>
                     </div>
 
@@ -55,12 +54,12 @@
 
                     <div class="form-group col-md-2">
                         <label>Qty Produk</label>
-                        <input type="number" name="qty_produk" class="form-control border border-dark" min="1">
+                        <input type="text" id="qty_produk" name="qty_produk" class="form-control border border-dark" min="1">
                     </div>
 
                     <div class="form-group col-md-4">
                         <label>Harga Produk</label>
-                        <input type="number" name="harga_produk" class="form-control border border-dark">
+                        <input type="text" name="harga_produk" id="harga_produk" class="form-control border border-dark">
                     </div>
 
                     <div class="form-group col-md-4">
@@ -103,44 +102,53 @@
                         <input type="text" name="kode_promo" class="form-control border border-dark">
                     </div>
 
+                    <div class="form-group col-md-4">
+                        <label>Pembayaran</label>
+                        <select name="pembayaran" id="pembayaran" class="form-control border border-dark">
+                            <option value="">-- Pilih --</option>
+                            <option value="transfer">Transfer</option>
+                            <option value="cod">COD</option>
+                        </select>
+                    </div>
+
                     <div class="form-group col-md-2">
                         <label>Ongkir</label>
-                        <input type="number" name="ongkir" class="form-control border border-dark">
+                        <input type="text" name="ongkir" id="ongkir" class="form-control border border-dark">
                     </div>
 
                     <div class="form-group col-md-2">
                         <label>Diskon Ongkir</label>
-                        <input type="number" name="diskon_ongkir" class="form-control border border-dark">
+                        <input type="text" name="diskon_ongkir" id="diskon_ongkir" class="form-control border border-dark">
                     </div>
 
                     <div class="form-group col-md-2">
                         <label>Admin COD</label>
-                        <input type="number" name="admin_cod" class="form-control border border-dark">
+                        <input type="text" name="admin_cod" id="admin_cod" class="form-control border border-dark">
                     </div>
 
                     <div class="form-group col-md-2">
                         <label>Diskon Admin COD</label>
-                        <input type="number" name="diskon_admin_cod" class="form-control border border-dark">
+                        <input type="text" name="diskon_admin_cod" id="diskon_admin_cod" class="form-control border border-dark">
                     </div>
 
                     <div class="form-group col-md-4">
-                        <label>Pembayaran</label>
-                        <select name="pembayaran" class="form-control border border-dark">
+                        <label>Ekspedisi</label>
+                        <select name="ekpedisi" class="form-control border border-dark">
                             <option value="">-- Pilih --</option>
-                            <option value="transfer">Transfer</option>
-                            <option value="cod">COD</option>
-                            <option value="qris">NON COD</option>
+                            <option value="jne">JNE</option>
+                            <option value="jnt">JNT</option>
+                            <option value="ninja">Ninja Express</option>
                         </select>
                     </div>
 
                     <div class="form-group col-md-4">
                         <label>Total Pembayaran</label>
-                        <input type="number" name="total_pembayaran" class="form-control border border-dark" readonly>
+                        <input type="text" name="total_pembayaran" id="total_pembayaran" class="form-control border border-dark" readonly>
                     </div>
 
                     <div class="form-group col-md-4">
                         <label>Bukti Transfer</label>
-                        <input type="file" name="bukti_tf" class="form-control border border-dark-file">
+                        <input type="file" name="bukti_tf" class="form-control-file border border-dark">
                     </div>
 
                 </div>
@@ -154,3 +162,69 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script type="text/javascript">
+    $(function () {
+        function formatNumber(num) {
+            return new Intl.NumberFormat('id-ID').format(num);
+        }
+
+        function unformatNumber(str) {
+            return parseInt(str.replace(/[^\d]/g, '')) || 0;
+        }
+
+        function updateTotal() {
+            let qty = unformatNumber($('#qty_produk').val());
+            let harga = unformatNumber($('#harga_produk').val());
+            let ongkir = unformatNumber($('#ongkir').val());
+            let diskonOngkir = unformatNumber($('#diskon_ongkir').val());
+            let adminCOD = unformatNumber($('#admin_cod').val());
+            let diskonAdminCOD = unformatNumber($('#diskon_admin_cod').val());
+            let pembayaran = $('#pembayaran').val();
+
+            let total = 0;
+
+            if (pembayaran === 'transfer') {
+                $('#admin_cod').val(0);
+                $('#diskon_admin_cod').val(0);
+                adminCOD = 0;
+                diskonAdminCOD = 0;
+                total = (qty * harga) + ongkir - diskonOngkir;
+            } else if (pembayaran === 'cod') {
+                $('#ongkir').val(0);
+                $('#diskon_ongkir').val(0);
+                ongkir = 0;
+                diskonOngkir = 0;
+                total = (qty * harga) + adminCOD - diskonAdminCOD;
+            }
+
+            $('#total_pembayaran').val(formatNumber(total));
+        }
+
+        // Format input saat user mengetik
+        function addNumberFormatting() {
+            let fields = ['#harga_produk', '#ongkir', '#diskon_ongkir', '#admin_cod', '#diskon_admin_cod'];
+
+            fields.forEach(function (selector) {
+                $(selector).on('input', function () {
+                    let cursorPos = this.selectionStart;
+                    let rawValue = unformatNumber($(this).val());
+                    $(this).val(formatNumber(rawValue));
+                    this.setSelectionRange(cursorPos, cursorPos); // jaga posisi kursor
+                });
+            });
+        }
+
+    $(function () {
+        $('#tanggalPicker').datetimepicker({ format: 'YYYY-MM-DD' });
+
+        $('#qty_produk, #harga_produk, #ongkir, #diskon_ongkir, #admin_cod, #diskon_admin_cod, #pembayaran')
+            .on('input change', updateTotal);
+
+        addNumberFormatting();
+    });
+
+    });
+</script>
+@endpush
