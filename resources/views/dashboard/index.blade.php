@@ -1,6 +1,6 @@
 @extends('layouts.stisla')
 
-@section('title', 'Dashboard Admin')
+@section('title')
 
 @section('content')
   <div class="section-header">
