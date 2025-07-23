@@ -32,12 +32,16 @@ Route::group(['middleware' => ['auth'],'prefix' => 'administrator', 'as' => 'adm
         Route::get('/','DashboardController@index')->name('index');
         Route::get('/tasks/priority-data','DashboardController@getTasksByPriority')->name('priority');
     });
-});
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+   // Personil
+    Route::group(['middleware' => ['role:admin|operator'],'namespace' => 'App\Http\Controllers\Personil','prefix' => 'personil', 'as' => 'personil.'], function(){
+        // Profil
+        Route::get('profil','ProfilController@index')->name('profil.index');
+        Route::get('profil/form','ProfilController@form')->name('profil.form');
+        Route::put('profil/update','ProfilController@update')->name('profil.update');
 
+        // User
+        Route::resource('user',UserController::class);
+    });
+});
 require __DIR__.'/auth.php';
