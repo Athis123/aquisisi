@@ -3,9 +3,13 @@
 @section('title', $title)
 
 @section('content')
-<div class="section-header">
-    <h1>{{ $title }}</h1>
-</div>
+    @include('components.breadcrumbs', [
+        'title' => $title,
+        'breadcrumbs' => [
+            ['label' => 'Dashboard', 'url' => route('admin.dashboard.index')],
+            ['label' => 'User']
+        ]
+    ])
 
 <div class="section-body">
     <a href="{{ route('admin.personil.user.create') }}" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Tambah User</a>

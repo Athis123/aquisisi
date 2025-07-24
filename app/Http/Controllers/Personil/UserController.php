@@ -10,6 +10,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 use Image;
 
 class UserController extends Controller
@@ -55,7 +56,8 @@ class UserController extends Controller
     public function create()
     {
         $title = 'Tambah Data Personil';
+        $roles = Role::pluck('name', 'id');
 
-        return view('personil.user.create',compact('title'));
+        return view('personil.user.create',compact('title', 'roles'));
     }
 }
