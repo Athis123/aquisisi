@@ -8,7 +8,7 @@
   </div>
 
   <div class="section-body">
-    <p>Selamat datang, {{ Auth::user()->name }}</p>
+    <p class="section-title">Selamat datang, {{ Auth::user()->name }}</p>
 
     {{-- <div class="row">
       <div class="col-lg-4 col-md-4 col-sm-12">

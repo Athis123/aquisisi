@@ -68,9 +68,9 @@ Route::group(['middleware' => ['auth'],'prefix' => 'administrator', 'as' => 'adm
    // Personil (PEGAWAI)
     Route::group(['middleware' => ['role:admin|operator'],'namespace' => 'App\Http\Controllers\Personil','prefix' => 'personil', 'as' => 'personil.'], function(){
         // Profil
-        Route::get('profil','ProfilController@index')->name('profil.index');
-        Route::get('profil/form','ProfilController@form')->name('profil.form');
-        Route::put('profil/update','ProfilController@update')->name('profil.update');
+        Route::get('profil','ProfileController@index')->name('profil.index');
+        Route::get('profil/form','ProfileController@form')->name('profil.form');
+        Route::put('profil/update','ProfileController@update')->name('profil.update');
 
         // User
         Route::resource('user',UserController::class);
