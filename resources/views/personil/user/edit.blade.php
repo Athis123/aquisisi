@@ -15,47 +15,47 @@
 <div class="section-body">
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('admin.personil.user.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.personil.user.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div class="row">
 
                     <div class="form-group col-md-4">
                         <label>Role</label>
                         <select name="role" class="form-control border border-dark" required>
-                            <option value="">-- Pilih Role --</option>
                             @foreach ($roles as $id => $name)
-                                <option value="{{ $id }}">{{ ucfirst($name) }}</option>
+                                <option value="{{ $id }}" {{ $userRoleId == $id ? 'selected' : '' }}>{{ ucfirst($name) }}</option>
                             @endforeach
                         </select>
                     </div>
 
                     <div class="form-group col-md-4">
                         <label>NIK</label>
-                        <input type="text" name="nik" class="form-control border border-dark" required>
+                        <input type="text" name="nik" value="{{ old('nik', $user->nik) }}" class="form-control border border-dark" required>
                     </div>
 
                     <div class="form-group col-md-4">
                         <label>Nama</label>
-                        <input type="text" name="name" class="form-control border border-dark" required>
+                        <input type="text" name="name" value="{{ old('name', $user->name) }}" class="form-control border border-dark" required>
                     </div>
 
                     <div class="form-group col-md-4">
                         <label>Email</label>
-                        <input type="text" name="email" class="form-control border border-dark" required>
+                        <input type="text" name="email" value="{{ old('email', $user->email) }}" class="form-control border border-dark" required>
                     </div>
 
                     <div class="form-group col-md-4">
                         <label>No Hp</label>
-                        <input type="text" name="no_hp" class="form-control border border-dark" required>
+                        <input type="text" name="no_hp" value="{{ old('no_hp', $user->no_hp) }}" class="form-control border border-dark" required>
                     </div>
 
                     <div class="form-group col-md-12">
                         <label>Alamat</label>
-                        <textarea name="alamat" class="form-control border border-dark" rows="2"></textarea>
+                        <textarea name="alamat" class="form-control border border-dark" rows="2">{{ old('alamat', $user->alamat) }}</textarea>
                     </div>
 
                     <div class="form-group col-md-4">
-                        <label>Password</label>
+                        <label>Password (Kosongkan jika tidak ingin mengubah)</label>
                         <div class="input-group">
                             <input type="password" name="password" id="password" class="form-control border border-dark">
                             <div class="input-group-append">
@@ -68,9 +68,14 @@
 
                     <div class="form-group col-md-4">
                         <label>Foto</label>
-                        <input type="file" name="foto" class="form-control-file border border-dark">
-                    </div>
+                        <input type="file" name="foto" class="form-control-file border border-dark mb-2">
 
+                        @if ($user->foto)
+                            <div class="mt-2">
+                                <img src="{{ asset('storage/' . $user->foto) }}" alt="Foto User" width="120" class="img-thumbnail">
+                            </div>
+                        @endif
+                    </div>
                 </div>
 
                 <div class="card-footer">
