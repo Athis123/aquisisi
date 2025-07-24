@@ -4,8 +4,8 @@
             <ul class="navbar-nav mr-3">
                 <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
                 {{-- <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i class="fas fa-search"></i></a></li> --}}
-                <h4 class="text-white mb-0 ml-3">ACQUISITION TEAM</h4>
             </ul>
+            <h4 class="text-white mb-0 ml-2 d-none d-sm-block">ACQUISITION TEAM</h4>
         </form>
         <ul class="navbar-nav navbar-right">
         {{-- <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>

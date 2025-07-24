@@ -3,9 +3,14 @@
 @section('title', $title)
 
 @section('content')
-<div class="section-header">
-    <h1>{{ $title }}</h1>
-</div>
+    @include('components.breadcrumbs', [
+        'title' => $title,
+        'breadcrumbs' => [
+            ['label' => 'Dashboard', 'url' => route('admin.dashboard.index')],
+            ['label' => 'Order', 'url' => route('admin.data.order.index')],
+            ['label' => 'Tambah']
+        ]
+    ])
 
 <div class="section-body">
     <div class="card">
@@ -17,8 +22,8 @@
                         <label>Tanggal Order</label>
                         <div class="input-group date" id="tanggalPicker" data-target-input="nearest">
                             <input type="text" name="tanggal" class="form-control datetimepicker-input border border-dark" data-target="#tanggalPicker"/>
-                            <div class="input-group-append" data-target="#tanggalPicker" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            <div class="input-group-append " data-target="#tanggalPicker" data-toggle="datetimepicker">
+                                <div class="input-group-text border-dark"><i class="fa fa-calendar"></i></div>
                             </div>
                         </div>
                     </div>
@@ -222,7 +227,7 @@
         }
 
     $(function () {
-        $('#tanggalPicker').datetimepicker({ format: 'YYYY-MM-DD' });
+        $('#tanggalPicker').datetimepicker({ format: 'DD-MM-YYYY' });
 
         $('#qty_produk, #harga_produk, #ongkir, #diskon_ongkir, #admin_cod, #diskon_admin_cod, #pembayaran')
             .on('input change', updateTotal);
