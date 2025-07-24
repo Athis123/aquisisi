@@ -173,8 +173,14 @@
 
                     <div class="form-group col-md-4">
                         <label>Bukti Transfer</label>
-                        <input type="file" name="bukti_tf" class="form-control-file border border-dark"
-                            value="{{ old('bukti_tf', $order->bukti_tf) }}">
+                        @if ($order->bukti_tf)
+                            <div class="mb-2">
+                                <a href="{{ asset('storage/' . $order->bukti_tf) }}" target="_blank" class="btn btn-sm btn-info">
+                                    <i class="fas fa-eye"></i> Lihat Bukti Transfer
+                                </a>
+                            </div>
+                        @endif
+                        <input type="file" name="bukti_tf" class="form-control-file border border-dark">
                     </div>
 
                 </div>

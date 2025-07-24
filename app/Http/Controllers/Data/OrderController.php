@@ -19,14 +19,15 @@ class OrderController extends Controller
 
             return Datatables::of($data)
                 ->addColumn('aksi', function ($item) {
-                    // $button = '<a href="' . route('admin.data.order.show', $item->id) . '" title="Detail" class="btn btn-xs btn-info mr-1"><i class="fas fa-eye"></i></a>';
+                    $button = '<a href="' . route('admin.data.order.show', $item->id) . '" title="Detail" class="btn btn-xs btn-info mr-1"><i class="fas fa-eye"></i></a>';
                     // if (auth()->user()->hasRole('admin')) {
-                        $button = '<a href="' . route('admin.data.order.edit', $item->id) . '" title="Edit" class="btn btn-xs btn-warning mr-1"><i class="far fa-edit"></i></a>';
+                        $button .= '<a href="' . route('admin.data.order.edit', $item->id) . '" title="Edit" class="btn btn-xs btn-warning mr-1"><i class="far fa-edit"></i></a>';
                         $button .= '<button 
-                            title="Hapus"
-                            data-id="' . $item->id . '"  
-                            data-url="' . route('admin.data.order.index') . '"  
-                            class="btn btn-xs btn-danger confirm_delete"><i class="fas fa-trash-alt"></i></button>';
+                                class="btn btn-xs btn-danger btn-delete"
+                                data-id="' . $item->id . '"
+                                data-url="' . route('admin.data.order.destroy', $item->id) . '"
+                                title="Hapus"><i class="fas fa-trash-alt"></i>
+                            </button>';
                     // }
 
                     return $button;
@@ -191,5 +192,21 @@ class OrderController extends Controller
         Alert::success('Berhasil', 'Data Order berhasil diperbarui');
         return redirect()->route('admin.data.order.index');
     }
+
+    public function show($id)
+    {
+        $order = Order::findOrFail($id);
+        $title = 'Detail Order';
+        return view('data.order.show', compact('order', 'title'));
+    }
+
+    public function destroy($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->delete();
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);
+    }
+
 
 }

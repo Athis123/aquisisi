@@ -33,6 +33,54 @@
 
 @push('scripts')
 <script>
+    $(document).on('click', '.btn-delete', function(e) {
+        e.preventDefault();
+        let btn = this;
+        Swal.fire({
+            title: 'Yakin ingin menghapus data ini?',
+            text: "Data yang dihapus tidak bisa dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteData(btn);
+            }
+        });
+    });
+
+    function deleteData(button) {
+        const url = $(button).data('url');
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+                _method: 'DELETE',
+                _token: '{{ csrf_token() }}'
+            },
+            success: function (response) {
+                if (response.success) {
+                    $('#table').DataTable().ajax.reload();
+
+                    Swal.fire(
+                        'Berhasil!',
+                        'Data berhasil dihapus.',
+                        'success'
+                    );
+                } else {
+                    Swal.fire('Gagal', 'Gagal menghapus data.', 'error');
+                }
+            },
+            error: function () {
+                Swal.fire('Error', 'Terjadi kesalahan saat menghapus data.', 'error');
+            }
+        });
+    }
+
 $(function() {
     $('#table').DataTable({
         "paging": true,
@@ -49,7 +97,7 @@ $(function() {
             { data: 'tanggal', name: 'tanggal', orderable: false, searchable: false },
             { data: 'customer', name: 'customer'},
             { data: 'nama_produk', name: 'nama_produk' },
-            { data: 'qty_produk', qty_produk: 'name' },
+            { data: 'qty_produk', name: 'qty_produk' },
             { data: 'no_hp', name: 'no_hp' },
             { data: 'nama_cs', name: 'nama_cs' },
             { data: 'pembayaran', name: 'pembayaran' },
