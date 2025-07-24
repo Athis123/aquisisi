@@ -68,7 +68,7 @@ class OrderController extends Controller
             'kecamatan'     => 'required',
             'kelurahan'     => 'required',
             'kode_pos'      => 'required',
-            'kode_promo'    => 'nullable',
+            'kode_promo_id'    => 'nullable',
             'pembayaran'    => 'required',
             'ongkir'        => 'nullable',
             'diskon_ongkir' => 'nullable',
@@ -96,7 +96,7 @@ class OrderController extends Controller
             'sku_produk' => $request->sku_produk,
             'nama_produk' => $request->nama_produk,
             'qty_produk' => $request->qty_produk,
-            'harga_produk' => $request->harga_produk,
+            'harga_produk' => $harga_produk,
             'customer' => $request->customer,
             'no_hp' => $request->no_hp,
             'alamat' => $request->alamat,
@@ -105,7 +105,7 @@ class OrderController extends Controller
             'kecamatan' => $request->kecamatan,
             'kelurahan' => $request->kelurahan,
             'kode_pos' => $request->kode_pos,
-            'kode_promo' => $request->kode_promo,
+            'kode_promo_id' => $request->kode_promo_id,
             'pembayaran' => $request->pembayaran,
             'ongkir' => $ongkir,
             'diskon_ongkir' => $diskon_ongkir,
@@ -126,7 +126,8 @@ class OrderController extends Controller
     {
         $title = 'Edit Data Order';
         $order = Order::findOrFail($id);
-        return view('data.order.edit', compact('title', 'order'));
+        $kodePromo = MasterPromo::all();
+        return view('data.order.edit', compact('title', 'order', 'kodePromo'));
     }
 
     public function update(Request $request, $id)
@@ -148,7 +149,7 @@ class OrderController extends Controller
             'kecamatan' => 'required',
             'kelurahan' => 'required',
             'kode_pos' => 'required',
-            'kode_promo' => 'nullable',
+            'kode_promo_id' => 'nullable',
             'pembayaran' => 'required',
             'ongkir' => 'nullable',
             'diskon_ongkir' => 'nullable',
@@ -178,7 +179,7 @@ class OrderController extends Controller
             'kecamatan' => $request->kecamatan,
             'kelurahan' => $request->kelurahan,
             'kode_pos' => $request->kode_pos,
-            'kode_promo' => $request->kode_promo,
+            'kode_promo_id' => $request->kode_promo_id,
             'pembayaran' => $request->pembayaran,
             'ongkir' => str_replace('.', '', $request->ongkir),
             'diskon_ongkir' => str_replace('.', '', $request->diskon_ongkir),

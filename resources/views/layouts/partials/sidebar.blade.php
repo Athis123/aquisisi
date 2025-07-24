@@ -28,24 +28,30 @@
                 <li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li>
                 </ul>
             </li>
-        <li class="menu-header">Management User</li>
-        <li class="{{ request()->routeIs('admin.personil.user.*') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('admin.personil.user.index') }}">
-                <i class="fas fa-user"></i> <span>Pegawai</span>
+            <li class="menu-header">Master Data</li>
+            <li class="{{ request()->routeIs('admin.master.promo.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin.master.promo.index') }}">
+                    <i class="fas fa-database"></i> <span>Master Kode Promo</span>
+                </a>
+            </li>
+            <li class="menu-header">Management User</li>
+            <li class="{{ request()->routeIs('admin.personil.user.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin.personil.user.index') }}">
+                    <i class="fas fa-user"></i> <span>Pegawai</span>
+                </a>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="far fa-file-alt"></i> <span>Forms</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="forms-advanced-form.html">Advanced Form</a></li>
+                    <li><a class="nav-link" href="forms-editor.html">Editor</a></li>
+                    <li><a class="nav-link" href="forms-validation.html">Validation</a></li>
+                </ul>
+            </li>
+            {{-- <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
+            <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
+                <i class="fas fa-rocket"></i> Documentation
             </a>
-        </li>
-        <li class="dropdown">
-            <a href="#" class="nav-link has-dropdown"><i class="far fa-file-alt"></i> <span>Forms</span></a>
-            <ul class="dropdown-menu">
-                <li><a class="nav-link" href="forms-advanced-form.html">Advanced Form</a></li>
-                <li><a class="nav-link" href="forms-editor.html">Editor</a></li>
-                <li><a class="nav-link" href="forms-validation.html">Validation</a></li>
-            </ul>
-        </li>
-        {{-- <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-        <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
-            <i class="fas fa-rocket"></i> Documentation
-        </a>
-        </div>         --}}
+            </div>         --}}
     </aside>
 </div>

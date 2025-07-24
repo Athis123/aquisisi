@@ -109,7 +109,7 @@
 
                     <div class="form-group col-md-4">
                         <label>Kode Promo</label>
-                        <select name="kode_promo_id" class="form-control">
+                        <select name="kode_promo_id" class="form-control border border-dark">
                             <option value="">-- Pilih --</option>
                             @foreach ($kodePromo as $promo)
                                 <option value="{{ $promo->id }}" {{ old('kode_promo_id', $order->kode_promo_id ?? '') == $promo->id ? 'selected' : '' }}>

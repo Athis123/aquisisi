@@ -3,9 +3,14 @@
 @section('title', $title)
 
 @section('content')
-<div class="section-header">
-    <h1>{{ $title }}</h1>
-</div>
+    @include('components.breadcrumbs', [
+        'title' => $title,
+        'breadcrumbs' => [
+            ['label' => 'Dashboard', 'url' => route('admin.dashboard.index')],
+            ['label' => 'Order', 'url' => route('admin.data.order.index')],
+            ['label' => 'Edit']
+        ]
+    ])
 
 <div class="section-body">
     <div class="card">
@@ -82,8 +87,7 @@
 
                     <div class="form-group col-md-12">
                         <label>Alamat</label>
-                        <textarea name="alamat" class="form-control border border-dark" rows="2"
-                            value="{{ old('alamat', $order->alamat) }}" ></textarea>
+                        <textarea name="alamat" class="form-control border border-dark" rows="2">{{ old('alamat', $order->alamat) }}</textarea>
                     </div>
 
                     <div class="form-group col-md-3">
@@ -118,8 +122,14 @@
 
                     <div class="form-group col-md-4">
                         <label>Kode Promo</label>
-                        <input type="text" name="kode_promo" class="form-control border border-dark"
-                            value="{{ old('kode_promo', $order->kode_promo) }}">
+                        <select name="kode_promo_id" class="form-control border border-dark">
+                            <option value="">-- Pilih --</option>
+                            @foreach ($kodePromo as $promo)
+                                <option value="{{ $promo->id }}" {{ old('kode_promo_id', $order->kode_promo_id ?? '') == $promo->id ? 'selected' : '' }}>
+                                    {{ $promo->kode ? $promo->kode . ' - ' : '' }}{{ $promo->deskripsi }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="form-group col-md-4">
