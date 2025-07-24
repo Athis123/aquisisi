@@ -46,6 +46,17 @@ Route::group(['middleware' => ['auth'],'prefix' => 'administrator', 'as' => 'adm
         Route::delete('/order/{id}', [OrderController::class, 'destroy'])->name('order.destroy');
     });
 
+        // Data Master
+    Route::group(['middleware' => ['role:admin|operator'],'namespace' => 'App\Http\Controllers\Master','prefix' => 'master', 'as' => 'master.'], function(){
+        //Master Promo
+        Route::get('promo', 'MasterPromoController@index')->name('promo.index');
+        Route::get('promo/create', 'MasterPromoController@create')->name('promo.create');
+        Route::post('promo', 'MasterPromoController@store')->name('promo.store');
+        Route::get('promo/{id}/edit', 'MasterPromoController@edit')->name('promo.edit');
+        Route::put('promo/{id}', 'MasterPromoController@update')->name('promo.update');
+        Route::delete('promo/{id}', 'MasterPromoController@destroy')->name('promo.destroy');
+    });
+
    // Personil
     Route::group(['middleware' => ['role:admin|operator'],'namespace' => 'App\Http\Controllers\Personil','prefix' => 'personil', 'as' => 'personil.'], function(){
         // Profil

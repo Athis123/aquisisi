@@ -35,7 +35,7 @@ class order extends Model
         'kecamatan',
         'kelurahan',
         'kode_pos',
-        'kode_promo',
+        'kode_promo_id',
         'ongkir',
         'diskon_ongkir',
         'admin_cod',
@@ -45,4 +45,10 @@ class order extends Model
         'bukti_tf',
 
     ];
+
+    public function promo()
+    {
+        return $this->belongsTo(\App\Models\Mastrer\MasterPromo::class, 'kode_promo_id');
+    }
+
 }

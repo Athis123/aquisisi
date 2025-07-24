@@ -109,8 +109,16 @@
 
                     <div class="form-group col-md-4">
                         <label>Kode Promo</label>
-                        <input type="text" name="kode_promo" class="form-control border border-dark">
+                        <select name="kode_promo_id" class="form-control">
+                            <option value="">-- Pilih --</option>
+                            @foreach ($kodePromo as $promo)
+                                <option value="{{ $promo->id }}" {{ old('kode_promo_id', $order->kode_promo_id ?? '') == $promo->id ? 'selected' : '' }}>
+                                    {{ $promo->kode ? $promo->kode . ' - ' : '' }}{{ $promo->deskripsi }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
+
 
                     <div class="form-group col-md-4">
                         <label>Pembayaran</label>

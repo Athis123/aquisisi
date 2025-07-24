@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Data;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Data\Order;
+use App\Models\Master\MasterPromo;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use DataTables;
@@ -43,8 +44,9 @@ class OrderController extends Controller
     public function create()
     {
         $title = 'Create Data Order';
+        $kodePromo = MasterPromo::all();
 
-        return view('data.order.create', compact('title'));
+        return view('data.order.create', compact('title', 'kodePromo'));
     }
 
     public function store(Request $request)
