@@ -48,7 +48,7 @@ class order extends Model
 
     public function promo()
     {
-        return $this->belongsTo(\App\Models\Mastrer\MasterPromo::class, 'kode_promo_id');
+        return $this->belongsTo(\App\Models\Master\MasterPromo::class, 'kode_promo_id');
     }
 
     public function sku()

@@ -53,8 +53,15 @@
                     </div>
 
                     <div class="form-group col-md-4">
-                        <label>SKU Produk</label>
-                        <input type="text" name="sku_produk" class="form-control border border-dark">
+                        <label>Kode Promo</label>
+                        <select name="sku_produk_id" class="form-control border border-dark">
+                            <option value="">-- Pilih --</option>
+                            @foreach ($sku as $skup)
+                                <option value="{{ $skup->id }}" {{ old('sku_produk_id', $order->sku_produk_id ?? '') == $skup->id ? 'selected' : '' }}>
+                                    {{ $skup->kode ? $skup->kode . ' - ' : '' }}{{ $skup->deskripsi }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="form-group col-md-4">

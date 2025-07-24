@@ -35,7 +35,7 @@
                 </tr>
                 <tr>
                     <th>SKU Produk</th>
-                    <td>{{ $order->sku_produk }}</td>
+                    <td>{{ $order->sku ? $order->sku->kode . ' - ' . $order->sku->deskripsi : '-' }}</td>
                 </tr>
                 <tr>
                     <th>Produk</th>
@@ -78,8 +78,8 @@
                     <td>{{ $order->kode_pos }}</td>
                 </tr>
                 <tr>
-                    <th>Kode</th>
-                    <td>{{ $order->kode_promo }}</td>
+                    <th>Kode Promo</th>
+                    <td>{{ $order->promo ? $order->promo->kode . ' - ' . $order->promo->deskripsi : '-' }}</td>
                 </tr>
                 <tr>
                     <th>Pembayaran</th>

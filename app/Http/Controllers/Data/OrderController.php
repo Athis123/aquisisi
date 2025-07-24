@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Data\Order;
 use App\Models\Master\MasterPromo;
+use App\Models\Master\MasterSku;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use DataTables;
@@ -16,7 +17,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         if (request()->ajax()) {
-            $data = Order::query();
+            $data = Order::orderBy('tanggal', 'desc');
 
             return Datatables::of($data)
                 ->addColumn('aksi', function ($item) {
@@ -45,8 +46,9 @@ class OrderController extends Controller
     {
         $title = 'Create Data Order';
         $kodePromo = MasterPromo::all();
+        $sku = MasterSku::all();
 
-        return view('data.order.create', compact('title', 'kodePromo'));
+        return view('data.order.create', compact('title', 'kodePromo', 'sku'));
     }
 
     public function store(Request $request)
@@ -56,7 +58,7 @@ class OrderController extends Controller
             'lok_gudang'    => 'required|string',
             'nama_cs'       => 'required|string',
             'nama_adv'      => 'required',
-            'sku_produk'    => 'required',
+            'sku_produk_id'    => 'required',
             'nama_produk'   => 'required',
             'qty_produk'    => 'required',
             'harga_produk'  => 'required',
@@ -93,7 +95,7 @@ class OrderController extends Controller
             'lok_gudang' => $request->lok_gudang,
             'nama_cs' => $request->nama_cs,
             'nama_adv' => $request->nama_adv,
-            'sku_produk' => $request->sku_produk,
+            'sku_produk_id' => $request->sku_produk_id,
             'nama_produk' => $request->nama_produk,
             'qty_produk' => $request->qty_produk,
             'harga_produk' => $harga_produk,
@@ -127,7 +129,8 @@ class OrderController extends Controller
         $title = 'Edit Data Order';
         $order = Order::findOrFail($id);
         $kodePromo = MasterPromo::all();
-        return view('data.order.edit', compact('title', 'order', 'kodePromo'));
+        $sku = MasterSku::all();
+        return view('data.order.edit', compact('title', 'order', 'kodePromo', 'sku'));
     }
 
     public function update(Request $request, $id)
@@ -137,7 +140,7 @@ class OrderController extends Controller
             'lok_gudang' => 'required',
             'nama_cs' => 'required',
             'nama_adv' => 'nullable',
-            'sku_produk' => 'required',
+            'sku_produk_id' => 'required',
             'nama_produk' => 'required',
             'qty_produk' => 'required|numeric',
             'harga_produk' => 'required',
@@ -167,7 +170,7 @@ class OrderController extends Controller
             'lok_gudang' => $request->lok_gudang,
             'nama_cs' => $request->nama_cs,
             'nama_adv' => $request->nama_adv,
-            'sku_produk' => $request->sku_produk,
+            'sku_produk_id' => $request->sku_produk_id,
             'nama_produk' => $request->nama_produk,
             'qty_produk' => $request->qty_produk,
             'harga_produk' => str_replace('.', '', $request->harga_produk),
@@ -198,8 +201,9 @@ class OrderController extends Controller
 
     public function show($id)
     {
-        $order = Order::findOrFail($id);
+        $order = Order::with('promo', 'sku')->findOrFail($id);
         $title = 'Detail Order';
+
         return view('data.order.show', compact('order', 'title'));
     }
 

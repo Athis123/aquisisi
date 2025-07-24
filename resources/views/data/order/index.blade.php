@@ -96,6 +96,7 @@ $(function() {
         "responsive": true,
         processing: true,
         serverSide: true,
+        order: [[0, 'desc']],
         ajax: '{{ route('admin.data.order.index') }}',
         columns: [
             { data: 'tanggal', name: 'tanggal', orderable: false, searchable: false },
