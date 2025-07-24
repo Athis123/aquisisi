@@ -23,7 +23,7 @@ class order extends Model
         'ekpedisi',
         'nama_cs',
         'nama_adv',
-        'sku_produk',
+        'sku_produk_id',
         'nama_produk',
         'qty_produk',
         'harga_produk',
@@ -49,6 +49,11 @@ class order extends Model
     public function promo()
     {
         return $this->belongsTo(\App\Models\Mastrer\MasterPromo::class, 'kode_promo_id');
+    }
+
+    public function sku()
+    {
+        return $this->belongsTo(\App\Models\Master\MasterSku::class, 'sku_produk_id');
     }
 
 }

@@ -34,6 +34,11 @@
                     <i class="fas fa-database"></i> <span>Master Kode Promo</span>
                 </a>
             </li>
+            <li class="{{ request()->routeIs('admin.master.sku.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('admin.master.sku.index') }}">
+                    <i class="fas fa-server"></i> <span>Master SKU Produk</span>
+                </a>
+            </li>
             <li class="menu-header">Management User</li>
             <li class="{{ request()->routeIs('admin.personil.user.*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.personil.user.index') }}">

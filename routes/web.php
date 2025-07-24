@@ -55,9 +55,17 @@ Route::group(['middleware' => ['auth'],'prefix' => 'administrator', 'as' => 'adm
         Route::get('promo/{id}/edit', 'MasterPromoController@edit')->name('promo.edit');
         Route::put('promo/{id}', 'MasterPromoController@update')->name('promo.update');
         Route::delete('promo/{id}', 'MasterPromoController@destroy')->name('promo.destroy');
+
+        //Master Sku
+        Route::get('sku', 'MasterSkuController@index')->name('sku.index');
+        Route::get('sku/create', 'MasterSkuController@create')->name('sku.create');
+        Route::post('sku', 'MasterSkuController@store')->name('sku.store');
+        Route::get('sku/{id}/edit', 'MasterSkuController@edit')->name('sku.edit');
+        Route::put('sku/{id}', 'MasterSkuController@update')->name('sku.update');
+        Route::delete('sku/{id}', 'MasterSkuController@destroy')->name('sku.destroy');
     });
 
-   // Personil
+   // Personil (PEGAWAI)
     Route::group(['middleware' => ['role:admin|operator'],'namespace' => 'App\Http\Controllers\Personil','prefix' => 'personil', 'as' => 'personil.'], function(){
         // Profil
         Route::get('profil','ProfilController@index')->name('profil.index');
