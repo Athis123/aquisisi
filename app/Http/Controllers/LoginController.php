@@ -14,7 +14,7 @@ class LoginController extends Controller
             return redirect()->intended('administrator/dashboard');
         }
 
-        return view('auth.login'); // Pastikan folder dan file ini ada
+        return view('auth.login');
     }
 
     public function authenticate(LoginRequest $request)

@@ -30,7 +30,19 @@
                     </div>
 
                     <div class="form-group col-md-4">
-                        <label>NIK</label>
+                        <label>Tim</label>
+                        <select name="tim" class="form-control border border-dark" required>
+                            <option value="">-- Pilih Tim --</option>
+                            <option value="ADV">ADV</option>
+                            <option value="CS">CS</option>
+                            <option value="CRM">CRM</option>
+                            <option value="FINANCE">FINANCE</option>
+                            <option value="INPUTER">INPUTER</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>NIP</label>
                         <input type="text" name="nik" class="form-control border border-dark" required>
                     </div>
 

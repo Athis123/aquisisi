@@ -68,7 +68,11 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
+            'tim' => 'nullable|in:ADV,CS,CRM,FINANCE,INPUTER',
+            'nik' => 'required',
             'password' => 'required|min:6',
+            'no_hp' => 'nullable',
+            'alamat' => 'nullable',
             'role' => 'required|exists:roles,id'
         ]);
 
@@ -82,8 +86,9 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'tim' => $request->tim,
             'nik' => $request->nik,
+            'password' => Hash::make($request->password),
             'no_hp' => $request->no_hp,
             'alamat' => $request->alamat,
             'foto' => $request->foto ?? null,
@@ -109,12 +114,17 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
+            'tim' => 'nullable|in:ADV,CS,CRM,FINANCE,INPUTER',
+            'nik' => 'required',
+            'no_hp' => 'nullable',
+            'alamat' => 'nullable',
             'role' => 'required|exists:roles,id',
         ]);
 
         $data = [
             'name' => $request->name,
             'email' => $request->email,
+            'tim' => $request->tim,
             'nik' => $request->nik,
             'no_hp' => $request->no_hp,
             'alamat' => $request->alamat,

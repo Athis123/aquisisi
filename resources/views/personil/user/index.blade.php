@@ -20,8 +20,9 @@
                     <tr>
                         <th>No</th>
                         <th>Role</th>
-                        <th>NIK</th>
+                        <th>NIP</th>
                         <th>Nama</th>
+                        <th>Tim</th>
                         <th>Email</th>
                         <th>No Hp</th>
                         <th>Aksi</th>
@@ -101,6 +102,7 @@ $(function() {
             { data: 'role', name: 'role', orderable: false, searchable: false },
             { data: 'nik', name: 'nik' },
             { data: 'name', name: 'name' },
+            { data: 'tim', name: 'tim' },
             { data: 'email', name: 'email' },
             { data: 'no_hp', name: 'no_hp' },
             { data: 'aksi', name: 'aksi', orderable: false, searchable: false },

@@ -30,7 +30,19 @@
                     </div>
 
                     <div class="form-group col-md-4">
-                        <label>NIK</label>
+                        <label>Tim</label>
+                        <select name="tim" class="form-control border border-dark" required>
+                            <option value="">-- Pilih Tim --</option>
+                            <option value="ADV" {{ $user->tim == 'ADV' ? 'selected' : '' }}>ADV</option>
+                            <option value="CS" {{ $user->tim == 'CS' ? 'selected' : '' }}>CS</option>
+                            <option value="CRM" {{ $user->tim == 'CRM' ? 'selected' : '' }}>CRM</option>
+                            <option value="FINANCE" {{ $user->tim == 'FINANCE' ? 'selected' : '' }}>FINANCE</option>
+                            <option value="INPUTER" {{ $user->tim == 'INPUTER' ? 'selected' : '' }}>INPUTER</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>NIP</label>
                         <input type="text" name="nik" value="{{ old('nik', $user->nik) }}" class="form-control border border-dark" required>
                     </div>
 

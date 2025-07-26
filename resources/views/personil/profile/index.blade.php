@@ -105,6 +105,18 @@
                             <textarea class="form-control" name="alamat" id="alamat">{{ old('alamat', $user->alamat) }}</textarea>
                         </div>
 
+                        <div class="form-group">
+                            <label>Password (Kosongkan jika tidak ingin mengubah)</label>
+                            <div class="input-group">
+                                <input type="password" name="password" id="password" class="form-control border">
+                                <div class="input-group-append">
+                                    <span class="input-group-text border" id="togglePassword" style="cursor: pointer;">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group text-right">
                             <a href="{{ route('admin.personil.profil.index') }}" class="btn btn-secondary">Batal</a>
                             <button type="submit" class="btn btn-primary">Simpan</button>
@@ -119,7 +131,22 @@
 @endsection
 
 @push('scripts')
-<script>
-// Tambahkan JS jika diperlukan
+<script type="text/javascript">
+    $(function () {
+        $('#togglePassword').on('click', function () {
+            const passwordField = $('#password');
+            const icon = $(this).find('i');
+
+            // Toggle type
+            if (passwordField.attr('type') === 'password') {
+                passwordField.attr('type', 'text');
+                icon.removeClass('fa-eye').addClass('fa-eye-slash');
+            } else {
+                passwordField.attr('type', 'password');
+                icon.removeClass('fa-eye-slash').addClass('fa-eye');
+            }
+        });
+
+    });
 </script>
 @endpush

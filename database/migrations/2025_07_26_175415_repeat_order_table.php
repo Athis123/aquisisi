@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('order', function (Blueprint $table) {
+        Schema::create('repeat_order', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal')->nullable();
             $table->string('lok_gudang')->nullable();
             $table->string('ekpedisi')->nullable();
-            $table->string('nama_cs')->nullable();
+            $table->string('nama_crm')->nullable();
             $table->string('nama_adv')->nullable();
             $table->string('sku_produk')->nullable();
             $table->string('nama_produk')->nullable();
@@ -51,6 +51,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order');
+        Schema::dropIfExists('repeat_order');
     }
 };

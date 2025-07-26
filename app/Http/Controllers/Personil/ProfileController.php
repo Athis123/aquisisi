@@ -25,8 +25,13 @@ class ProfileController extends Controller
             'email' => 'required|email|unique:users,email,' . $user->id,
             'no_hp' => 'nullable|string|max:20',
             'alamat' => 'nullable|string',
+            'password' => 'nullable|min:6',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
+
+        if ($request->filled('password')) {
+            $validated['password'] = \Hash::make($request->password);
+        }
 
         // Upload foto jika ada
         if ($request->hasFile('foto')) {
