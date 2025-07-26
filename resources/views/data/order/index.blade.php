@@ -27,7 +27,7 @@
                         <th>Qty</th>
                         <th>no_hp</th>
                         <th>Nama CS</th>
-                        <th>Pemabayaran</th>
+                        <th>Pembayaran</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
