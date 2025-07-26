@@ -13,6 +13,9 @@
 
 <div class="section-body">
     <a href="{{ route('admin.data.order.create') }}" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Tambah Data</a>
+    <a href="{{ route('admin.data.order.export') }}" class="btn btn-success mb-3">
+        <i class="fas fa-file-excel"></i> Export Excel
+    </a>
     <div class="card">
         <div class="card-body table-responsive">
             <table class="table table-bordered" id="table" width="100%">

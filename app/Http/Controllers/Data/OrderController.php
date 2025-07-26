@@ -10,6 +10,8 @@ use App\Models\Master\MasterSku;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 use DataTables;
+use App\Exports\OrderExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -215,5 +217,8 @@ class OrderController extends Controller
         return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);
     }
 
-
+    public function exportExcel()
+    {
+        return Excel::download(new OrderExport, 'data-order.xlsx');
+    }
 }

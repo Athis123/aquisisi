@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth'],'prefix' => 'administrator', 'as' => 'adm
         Route::get('order', 'OrderController@index')->name('order.index');
         Route::get('order/create', 'OrderController@create')->name('order.create');
         Route::post('order', 'OrderController@store')->name('order.store');
+        Route::get('order/export', 'OrderController@exportExcel')->name('order.export');
         Route::get('order/{id}', 'OrderController@show')->name('order.show');
         Route::get('order/{id}/edit', 'OrderController@edit')->name('order.edit');
         Route::put('order/{id}', 'OrderController@update')->name('order.update');
